@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  postcss: 8.5.13
+  '@tootallnate/once': 3.0.1
+
+
 importers:
 
   .:
