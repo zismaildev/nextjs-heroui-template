@@ -63,10 +63,10 @@ export function ThemeWrapper({ children }: ThemeWrapperProps) {
                 .grid-pan { animation: grid-pan 8s linear infinite; }
             `}</style>
 
-            <div className="relative min-h-screen w-full flex flex-col overflow-x-hidden transition-colors duration-700 bg-background">
+            <div className="relative min-h-screen w-full flex flex-col transition-colors duration-700 bg-background">
 
                 {/* ─── Animated Background Layer ─── */}
-                <div className="fixed inset-0 z-0 overflow-hidden">
+                <div className="fixed inset-0 z-0">
 
                     {/* Background Image (ถ้ามี) */}
                     {showImage && (

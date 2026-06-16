@@ -1,12 +1,12 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-    name: "PNattapong",
-    description: "Portfolio Website of Nattapong Panthiya",
+    name: "Heroui Template",
+    description: "heroui template for nextjs 16",
     url: "#",
     icon: "/favicon.ico",
     author: "Nattapong Panthiya",
-    keywords: ["Nattapong Panthiya", "PNattapong", "Nattapong", "Panthiya", "Fullstack Developer", "Portfolio"],
+    keywords: ["nextjs", "react", "typescript", "tailwindcss", "heroui"],
     navItems: [
         {
             title: "About",

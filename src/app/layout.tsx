@@ -40,7 +40,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground h-full overflow-x-hidden" suppressHydrationWarning>
+      <body className="bg-background text-foreground h-full" suppressHydrationWarning>
         <NextThemesProvider attribute="class" defaultTheme="dark">
           <ThemeConfigProvider>
             <ThemeWrapper>
