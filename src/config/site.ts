@@ -1,11 +1,11 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-    name: "Heroui Template",
-    description: "heroui template for nextjs 16",
+    name: "Zismaial-Hero-Template",
+    description: "Zismaial-Hero-Template is a Next.js template that uses TypeScript, TailwindCSS, and HeroUI.",
     url: "#",
     icon: "/favicon.ico",
-    author: "Nattapong Panthiya",
+    author: "ZismailDev",
     keywords: ["nextjs", "react", "typescript", "tailwindcss", "heroui"],
     navItems: [
         {
@@ -38,8 +38,7 @@ export const siteConfig = {
     links: {
         facebook: "#",
         instagram: "#",
-        github: "https://github.com/ZismailDev",
-        linkedin: "#",
-        email: "nattapong130247@gmail.com",
+        email: "example@gmail.com",
+        githubdeveloper: "https://github.com/ZismailDev",
     },
 }

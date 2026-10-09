@@ -93,11 +93,23 @@ export const Particles: React.FC<ParticlesProps> = ({
             if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
             resizeTimeout.current = setTimeout(() => initCanvasRef.current(), 200);
         };
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                if (rafID.current != null) {
+                    window.cancelAnimationFrame(rafID.current);
+                    rafID.current = null;
+                }
+            } else if (rafID.current == null) {
+                animateRef.current();
+            }
+        };
         window.addEventListener("resize", handleResize);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
         return () => {
             if (rafID.current != null) window.cancelAnimationFrame(rafID.current);
             if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
             window.removeEventListener("resize", handleResize);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, [color]);
 
@@ -200,8 +212,9 @@ export const Particles: React.FC<ParticlesProps> = ({
                 circle.x < -circle.size || circle.x > canvasSize.current.w + circle.size ||
                 circle.y < -circle.size || circle.y > canvasSize.current.h + circle.size
             ) {
-                circles.current.splice(i, 1);
-                drawCircle(circleParams());
+                const newCircle = circleParams();
+                circles.current[i] = newCircle;
+                drawCircle(newCircle, true);
             }
         });
         rafID.current = window.requestAnimationFrame(animateRef.current);

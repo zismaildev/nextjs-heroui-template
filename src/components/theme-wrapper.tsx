@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { useThemeConfig } from "@/context/theme-context";
 import { Particles } from "./particles-bg";
-import { BackgroundBeams } from "./background-beams";
 
 interface ThemeWrapperProps {
     children: React.ReactNode;
@@ -32,41 +31,11 @@ export function ThemeWrapper({ children }: ThemeWrapperProps) {
 
     return (
         <>
-            <style>{`
-                @keyframes orb-float-1 {
-                    0%, 100% { transform: translate(0, 0) scale(1); }
-                    33%  { transform: translate(60px, -80px) scale(1.15); }
-                    66%  { transform: translate(-40px, 40px) scale(0.9); }
-                }
-                @keyframes orb-float-2 {
-                    0%, 100% { transform: translate(0, 0) scale(1); }
-                    33%  { transform: translate(-70px, 60px) scale(1.1); }
-                    66%  { transform: translate(50px, -50px) scale(0.95); }
-                }
-                @keyframes orb-float-3 {
-                    0%, 100% { transform: translate(0, 0) scale(1); }
-                    50%  { transform: translate(40px, 70px) scale(1.2); }
-                }
-                @keyframes orb-float-4 {
-                    0%, 100% { transform: translate(0, 0) scale(1); }
-                    40%  { transform: translate(-50px, -60px) scale(1.05); }
-                    80%  { transform: translate(30px, 40px) scale(0.92); }
-                }
-                @keyframes grid-pan {
-                    0%   { background-position: 0px 0px; }
-                    100% { background-position: 60px 60px; }
-                }
-                .orb-1 { animation: orb-float-1 14s ease-in-out infinite; }
-                .orb-2 { animation: orb-float-2 18s ease-in-out infinite; }
-                .orb-3 { animation: orb-float-3 12s ease-in-out infinite; }
-                .orb-4 { animation: orb-float-4 20s ease-in-out infinite; }
-                .grid-pan { animation: grid-pan 8s linear infinite; }
-            `}</style>
+            <div className={`relative min-h-screen w-full flex flex-col overflow-x-hidden transition-colors duration-700 ${isDark ? "bg-background" : "bg-slate-100"}`}>
 
-            <div className="relative min-h-screen w-full flex flex-col transition-colors duration-700 bg-background">
 
                 {/* ─── Animated Background Layer ─── */}
-                <div className="fixed inset-0 z-0">
+                <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
 
                     {/* Background Image (ถ้ามี) */}
                     {showImage && (
@@ -99,41 +68,40 @@ export function ThemeWrapper({ children }: ThemeWrapperProps) {
                     <div className={`orb-3 absolute -bottom-24 -left-24 w-[460px] h-[460px] rounded-full blur-[130px] z-[2] transition-colors duration-1000 ${isDark ? "bg-rose-600/20" : "bg-pink-300/10"}`} />
                     <div className={`orb-4 absolute -bottom-20 -right-20 w-[380px] h-[380px] rounded-full blur-[100px] z-[2] transition-colors duration-1000 ${isDark ? "bg-emerald-500/15" : "bg-emerald-300/10"}`} />
 
-                    {/* Center Glow (light mode only) */}
+                    {/* Center Glow (light mode only) - Muted for better comfort */}
                     {!isDark && (
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] blur-[180px] rounded-full z-[1] bg-indigo-100/50 animate-pulse" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] blur-[220px] rounded-full z-[1] bg-slate-200/30 animate-pulse" />
                     )}
 
-                    {/* Background Beams with Collision */}
-                    <BackgroundBeams
-                        className="z-[3]"
-                        isDark={isDark}
-                        beamCount={10}
-                    />
-
-                    {/* Magic UI Particles */}
-                    <Particles
-                        className="absolute inset-0 z-[4]"
-                        quantity={100}
-                        staticity={50}
-                        ease={60}
-                        size={0.45}
-                        color={particleColor}
-                        refresh={!isDark}
-                    />
-
-                    {/* Gradient Overlay */}
-                    <div
-                        className={`absolute inset-0 z-[5] pointer-events-none transition-all duration-1000 ${isDark
-                            ? "bg-gradient-to-b from-background/60 via-background/30 to-background/60"
-                            : "bg-gradient-to-b from-background/50 via-background/20 to-background/50"
-                        }`}
-                    />
                 </div>
 
+                {/* Magic UI Particles */}
+                <Particles
+                    className="fixed inset-0 z-[2] pointer-events-none"
+                    quantity={100}
+                    staticity={50}
+                    ease={60}
+                    size={0.45}
+                    color={particleColor}
+                    refresh={!isDark}
+                />
+
+
+
+                {/* Gradient Overlay */}
+                <div
+                    className={`fixed inset-0 z-[5] pointer-events-none transition-all duration-1000 ${isDark
+                        ? "bg-gradient-to-b from-background/60 via-background/30 to-background/60"
+                        : "bg-gradient-to-b from-background/50 via-background/20 to-background/50"
+                        }`}
+                />
+
                 {/* ─── Main Content ─── */}
-                <div className="relative z-20 flex-1 flex flex-col">
-                    {children}
+                <div className="relative z-20 flex-1 flex flex-col pointer-events-none">
+                    {/* The content itself should have pointer-events-auto */}
+                    <div className="pointer-events-auto flex-1 flex flex-col">
+                        {children}
+                    </div>
                 </div>
             </div>
         </>
