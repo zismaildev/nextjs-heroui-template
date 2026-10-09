@@ -44,18 +44,16 @@ export const Hero = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
           <Button 
-            color="primary" 
+            variant="primary" 
             size="lg" 
-            radius="full"
-            className="w-full sm:w-auto font-semibold shadow-lg shadow-primary/30"
+            className="w-full sm:w-auto font-semibold shadow-lg shadow-primary/30 rounded-full"
           >
             Get Started
           </Button>
           <Button 
-            variant="bordered" 
+            variant="outline" 
             size="lg" 
-            radius="full"
-            className="w-full sm:w-auto font-semibold border-default-200 hover:border-default-400"
+            className="w-full sm:w-auto font-semibold border-default-200 hover:border-default-400 rounded-full"
           >
             Read Documentation
           </Button>
